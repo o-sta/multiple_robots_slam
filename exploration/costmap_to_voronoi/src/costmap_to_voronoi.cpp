@@ -1,6 +1,10 @@
 #include <costmap_to_voronoi/costmap_to_voronoi.h>
 geometry_msgs::PoseStamped start_pose_set(std::string& frame_id)
 {
+<<<<<<< HEAD
+=======
+  std::cout << "start_pose_set" << std::endl;
+>>>>>>> c32f7aa89b1f22852feb0a71bcf003e936d9056c
   geometry_msgs::PoseStamped start_;
   start_.header.frame_id = frame_id;
   start_.pose.position.x = 0.0;
@@ -14,6 +18,10 @@ geometry_msgs::PoseStamped start_pose_set(std::string& frame_id)
 }
 void robot1_final_target_CB(const geometry_msgs::PoseStamped &goal)
 {
+<<<<<<< HEAD
+=======
+  std::cout << "robot1_final_target_CB" << std::endl;
+>>>>>>> c32f7aa89b1f22852feb0a71bcf003e936d9056c
   std::string name;
   std::string robot1_frame_id_ = "/robot1/map";
   ros::NodeHandle p("~");
@@ -23,11 +31,19 @@ void robot1_final_target_CB(const geometry_msgs::PoseStamped &goal)
   std::vector<geometry_msgs::PoseStamped> plan;
   start_ = start_pose_set(robot1_frame_id_);
   goal_ = goal;
+<<<<<<< HEAD
+=======
+  std::cout << "voronoiProcessが怪しい..." << std::endl;
+>>>>>>> c32f7aa89b1f22852feb0a71bcf003e936d9056c
   r1_CB_ctv.voronoiProcess(start_,goal_,plan);
 }
 
 void robot2_final_target_CB(const geometry_msgs::PoseStamped &goal)
 {
+<<<<<<< HEAD
+=======
+  std::cout << "robot1_final_target_CB" << std::endl;
+>>>>>>> c32f7aa89b1f22852feb0a71bcf003e936d9056c
   std::string name;
   std::string robot2_frame_id_ = "/robot2/map";
   ros::NodeHandle p("~"); 
@@ -37,6 +53,10 @@ void robot2_final_target_CB(const geometry_msgs::PoseStamped &goal)
   std::vector<geometry_msgs::PoseStamped> plan;
   start_ = start_pose_set(robot2_frame_id_);
   goal_ = goal;
+<<<<<<< HEAD
+=======
+  std::cout << "voronoiProcessが怪しい..." << std::endl;
+>>>>>>> c32f7aa89b1f22852feb0a71bcf003e936d9056c
   r2_CB_ctv.voronoiProcess(start_,goal_,plan);
 }
 
@@ -63,7 +83,13 @@ int main(int argc, char** argv)
   sub2 = nh2.subscribe("/robot2/final_target",1,&robot2_final_target_CB);
 
   while(ros::ok()){
+<<<<<<< HEAD
     queue1.callOne(ros::WallDuration(1.0));
+=======
+    std::cout << "queue1 callone" << std::endl;
+    queue1.callOne(ros::WallDuration(1.0));
+    std::cout << "queue2 callone" << std::endl;
+>>>>>>> c32f7aa89b1f22852feb0a71bcf003e936d9056c
     queue2.callOne(ros::WallDuration(1.0));
   }
 
