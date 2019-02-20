@@ -125,6 +125,7 @@ catkin_package(
 include_directories(
  include
   ${catkin_INCLUDE_DIRS}
+  #"/usr/include/pcl-1.7"
 )
 
 ## Declare a C++ library
