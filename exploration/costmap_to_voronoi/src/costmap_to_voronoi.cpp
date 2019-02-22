@@ -28,23 +28,6 @@ void robot_final_target_CB(const geometry_msgs::PoseStamped &goal)
   goal_ = goal;
   ctv.voronoiProcess(start_,goal_,plan);
 }
-/*
-void robot2_final_target_CB(const geometry_msgs::PoseStamped &goal)
-{
-  std::cout << "robot1_final_target_CB" << std::endl;
-  std::string name;
-  std::string robot2_frame_id_ = "/robot2/map";
-  ros::NodeHandle p("~"); 
-  p.getParam("topic_ns", name);
-  CostmapToVoronoi r2_CB_ctv(name);
-  geometry_msgs::PoseStamped start_,goal_;
-  std::vector<geometry_msgs::PoseStamped> plan;
-  start_ = start_pose_set(robot2_frame_id_);
-  goal_ = goal;
-  std::cout << "voronoiProcessが怪しい..." << std::endl;
-  r2_CB_ctv.voronoiProcess(start_,goal_,plan);
-}
-*/
 
 int main(int argc, char** argv)
 {
