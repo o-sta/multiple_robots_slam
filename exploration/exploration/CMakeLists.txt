@@ -18,6 +18,12 @@ find_package(catkin REQUIRED COMPONENTS
   visualization_msgs
   exploration_msgs
   tf
+  costmap_2d
+  navfn
+  voronoi_planner
+  move_base_msgs
+  actionlib
+  pcl_ros
 )
 
 ## System dependencies are found with CMake's conventions
@@ -215,14 +221,23 @@ target_link_libraries(sensor_based_exploration ${catkin_LIBRARIES})
 add_executable(log src/log.cpp)
 target_link_libraries(log ${catkin_LIBRARIES})
 
-add_executable(visualization src/visualization.cpp)
-target_link_libraries(visualization ${catkin_LIBRARIES})
+add_executable(visualization_sbe src/visualization_sbe.cpp)
+target_link_libraries(visualization_sbe ${catkin_LIBRARIES})
 
 add_executable(continuity src/continuity.cpp)
 target_link_libraries(continuity ${catkin_LIBRARIES})
 
-add_executable(frontier_based_exploration src/fbe_main.cpp)
-target_link_libraries(frontier_based_exploration ${catkin_LIBRARIES})
+add_executable(frontier_based_exploration_test src/fbe_test.cpp)
+target_link_libraries(frontier_based_exploration_test ${catkin_LIBRARIES})
 
 add_executable(visualization_test src/visualization_test.cpp)
 target_link_libraries(visualization_test ${catkin_LIBRARIES})
+
+add_executable(function_test src/function_test.cpp)
+target_link_libraries(function_test ${catkin_LIBRARIES})
+
+add_executable(frontier_based_exploration_movebase src/fbe_movebase.cpp)
+target_link_libraries(frontier_based_exploration_movebase ${catkin_LIBRARIES})
+
+add_executable(visualization_fbe src/visualization_fbe.cpp)
+target_link_libraries(visualization_fbe ${catkin_LIBRARIES})

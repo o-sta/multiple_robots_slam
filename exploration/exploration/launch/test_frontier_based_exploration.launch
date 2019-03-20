@@ -3,7 +3,8 @@
 
     <arg name="robot_name" default="robot1"/>
 
-    <arg name="map" default="/$(arg robot_name)/map"/>
+    <!-- <arg name="map" default="/$(arg robot_name)/map"/> -->
+    <arg name="map" default="/server/grid_map_merge/merge_map"/>
     <arg name="pose" default="/$(arg robot_name)/robot_pose"/>
     <arg name="pose_log" default="pose_log"/>
     <arg name="goal" default="goal"/>
@@ -12,20 +13,48 @@
     <arg name="goal_delete" default="goal/delete"/>
     <arg name="goal_list_delete" default="goal_list/delete"/>
 
+    <!-- this group namespace-->
     <arg name="exploration_ns" default="exploration"/>
+    <!-- <arg name="costmap_name" default="global_costmap"/> -->
+    <!-- used topic namespace if create path-->
+    <!-- <arg name="planner_name" default="voronoi_planner"/> -->
+    <!-- path planning method  0:NavfnROS, 1:VoronoiPlanner -->
+    <!-- <arg name="planner_method" default="1"/> -->
+
+    <arg name="base_frame_id"   default="$(arg robot_name)/base_footprint"/>
+  	<arg name="global_frame_id" default="$(arg robot_name)/map"/>
 
     <group ns="$(arg robot_name)/$(arg exploration_ns)">
-        <node pkg="exploration" type="frontier_based_exploration" name="frontier_based_exploration_test" output="screen">
-            <param name="map_frame_id" value="$(arg robot_name)/map"/>
+        <node pkg="exploration" type="frontier_based_exploration_test" name="fbe_test" output="screen">
             <remap from="map" to="$(arg map)"/>
             <remap from="pose" to="$(arg pose)"/>
             <remap from="goal" to="$(arg goal)"/>
             <remap from="goal_list" to="$(arg goal_list)"/>
             <remap from="goal/delete" to="$(arg goal_delete)"/>
             <remap from="goal_list/delete" to="$(arg goal_list_delete)"/>
+            <remap from="velocity" to="/$(arg robot_name)/mobile_base/commands/velocity"/>
+            <!-- <rosparam file="$(find exploration)/params/costmap_common_params.yaml" command="load" ns="$(arg costmap_name)"/>
+			<rosparam file="$(find exploration)/params/global_costmap_params.yaml" command="load" ns="$(arg costmap_name)"/> -->
+            <rosparam file="$(find exploration)/params/path_planner_params.yaml" command="load"/>
+            <!-- <rosparam file="$(find exploration)/params/navfn_global_planner_params.yaml" command="load"/> -->
+            <rosparam file="$(find exploration)/params/frontier_search_params.yaml" command="load"/>
+            <rosparam file="$(find exploration)/params/movement_params.yaml" command="load"/>
+			<param name="global_costmap/global_frame" value="$(arg global_frame_id)"/>
+    		<param name="global_costmap/robot_base_frame" value="$(arg base_frame_id)"/>
+            <param name="map_frame_id" value="$(arg robot_name)/map"/>
+            <param name="merge_map_frame_id" value="/server/merge_map"/>
+            <!-- <param name="costmap_name" value="$(arg costmap_name)"/> -->
+			<!-- <param name="planner_name" value="$(arg planner_name)"/> -->
+            <!-- <param name="planner_method" value="$(arg planner_method)"/> -->
+            <param name="movebase_name" value="/$(arg robot_name)/move_base"/>
+            <!-- <param name="frontier_detection_method" value="1"/> -->
+            <!-- <param name="obstacle_filter" value="true"/> -->
+            <!-- <param name="publish_pose_array" value="true"/> -->
+            <!-- <param name="previous_goal_effect" value="false"/> -->
         </node>
 
         <node pkg="exploration" type="visualization_test" name="visualization_test">
+            <rosparam file="$(find exploration)/params/visualization_params.yaml" command="load"/>
             <param name="map_frame_id" value="$(arg robot_name)/map"/>
             <remap from="goal" to="$(arg goal)"/>
             <remap from="goal_list" to="$(arg goal_list)"/>
@@ -34,5 +63,11 @@
             <remap from="goal/delete" to="$(arg goal_delete)"/>
             <remap from="goal_list/delete" to="$(arg goal_list_delete)"/>
         </node>
+
+        <node pkg="exploration" type="log" name="log">
+            <remap from="pose" to="$(arg pose)"/>
+            <remap from="pose_log" to="$(arg pose_log)"/>
+        </node>
+
     </group>
 </launch>

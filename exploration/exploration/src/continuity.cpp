@@ -1,4 +1,4 @@
-#include <exploration/continuity.h>
+#include <exploration/continuity.hpp>
 #include <kobuki_msgs/BumperEvent.h>
 
 int main(int argc, char *argv[])
@@ -10,6 +10,8 @@ int main(int argc, char *argv[])
     std::string bumperContinuityTopic;
     p.param<std::string>("bumper_raw_topic", bumperRawTopic, "bumper_raw");
     p.param<std::string>("bumper_continuity_topic", bumperContinuityTopic, "bumper_continuity");
+
+    //remapにすればパラメータいらない
 
     Continuity<kobuki_msgs::BumperEvent> cbe(bumperRawTopic,bumperContinuityTopic);
 
