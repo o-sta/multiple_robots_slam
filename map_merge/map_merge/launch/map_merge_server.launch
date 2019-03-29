@@ -22,6 +22,8 @@
 
   <arg name="affine" default="1.0"/>
 
+  <arg name="map_num" default="1"/>
+
   <group ns="$(arg robot_name)">
 <!--
       <include file="$(find map_merge)/launch/includes/map_tf_publisher.launch.xml">
@@ -31,35 +33,48 @@
         <arg name="init_yaw" value="0.0"/>
       </include>
 -->
-
+<!-- 
       <include file="$(find map_merge)/launch/includes/map_merge_tf_publisher.launch.xml">
         <arg name="robot_name" value="$(arg robot_name)"/>
         <arg name="init_x" value="0.0"/>
         <arg name="init_y" value="0.0"/>
         <arg name="init_yaw" value="0.0"/>
-      </include>
+      </include> 
+-->
 
       <node pkg="tf" type="static_transform_publisher" name="robot1_maptf_broadcaster" args="$(arg robot1_init_x) $(arg robot1_init_y) 0 $(arg robot1_init_yaw) 0 0 /$(arg robot_name)/map /robot1/map 100"/>
 
       <node pkg="tf" type="static_transform_publisher" name="robot2_maptf_broadcaster" args="$(arg robot2_init_x) $(arg robot2_init_y) 0 $(arg robot2_init_yaw) 0 0 /$(arg robot_name)/map /robot2/map 100"/>
       <!-- <node pkg="tf" type="static_transform_publisher" name="robot2_maptf_broadcaster" args="$(arg robot2_init_x) $(arg robot2_init_y) 0 0 0 0 /$(arg robot_name)/map /robot2/map 100"/> -->
-
+<!-- 
       <include file="$(find map_merge)/launch/includes/grid_map_merge.launch.xml">
         <arg name="robot_name" value="$(arg robot_name)"/>
         <arg name="robot1_init_x" value="$(eval arg ('robot1_init_x') / arg ('map_resolution') * arg ('affine'))"/>
         <arg name="robot1_init_y" value="$(eval arg ('robot1_init_y') / arg ('map_resolution') * arg ('affine'))"/>
-        <!-- <arg name="robot1_init_yaw" value="$(arg robot1_init_yaw)"/> -->
+        <arg name="robot1_init_yaw" value="$(arg robot1_init_yaw)"/>
         <arg name="robot1_init_yaw" value="$(eval arg ('robot1_init_yaw') * arg ('affine'))"/>
 
         <arg name="robot2_init_x" value="$(eval arg ('robot2_init_x') / arg ('map_resolution') * arg ('affine'))"/>
         <arg name="robot2_init_y" value="$(eval arg ('robot2_init_y') / arg ('map_resolution') * arg ('affine'))"/>
-        <!-- <arg name="robot2_init_yaw" value="$(arg robot2_init_yaw)"/> -->
+        <arg name="robot2_init_yaw" value="$(arg robot2_init_yaw)"/>
         <arg name="robot2_init_yaw" value="$(eval arg ('robot2_init_yaw') * arg ('affine'))"/>
 
         <arg name="map_num" value="1"/>
       </include>
-
-
+-->
+      <node pkg="grid_map_merge" type="grid_map_merge" respawn="false" name="grid_map_merge" output="screen">
+        <param name="robot_map_topic" value="map"/>
+        <param name="robot_namespace" value=""/>
+        <param name="merged_map_topic" value="/$(arg robot_name)/grid_map_merge/merge_map"/>
+        <param name="world_frame" value="$(arg robot_name)/merge_map"/>
+        <param name="known_init_poses" value="true"/>
+        <param name="merging_rate" value="2.0"/>
+        <param name="discovery_rate" value="0.5"/>
+        <param name="estimation_rate" value="0.5"/>
+        <param name="estimation_confidence" value="1.0"/>
+        <param name="map_num" value="$(arg map_num)"/>
+      </node>
+  <!-- 
     <include file="$(find map_merge)/launch/includes/cloud_map_merge.launch.xml">
       <arg name="robot_name" value="$(arg robot_name)"/>
 
@@ -72,7 +87,8 @@
       <arg name="robot2_init_yaw" value="$(arg robot2_init_yaw)"/>
 
       <arg name="alignment" value="false"/>
-    </include>
+    </include> 
+  -->
 
   </group>
 </launch>

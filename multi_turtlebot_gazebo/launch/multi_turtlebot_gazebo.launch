@@ -21,9 +21,9 @@
     <arg name="robot1_init_yaw" default="0.0"/>
 
     <arg name="robot2_name" default="robot2"/>
-    <arg name="robot2_init_x" default="39.3"/>
-    <arg name="robot2_init_y" default="12.0"/>
-    <arg name="robot2_init_yaw" default="3.14"/>
+    <arg name="robot2_init_x" default="3.0"/>
+    <arg name="robot2_init_y" default="0.0"/>
+    <arg name="robot2_init_yaw" default="0.0"/>
 
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -52,9 +52,10 @@
         <include if="$(eval arg('mapping') and arg('gmapping'))" file="$(find multi_turtlebot_gazebo)/launch/includes/one_turtlebot_gmapping.launch.xml">
             <arg name="robot_name"  value="$(arg robot1_name)"/>
         </include>
+        <node pkg="multi_robot" name="robot_moving" type="robot_moving" output="screen"/>
     </group>
 
-    <!-- <group ns="$(arg robot2_name)">
+    <group ns="$(arg robot2_name)">
         <include file="$(find multi_turtlebot_gazebo)/launch/includes/one_turtlebot_gazebo.launch.xml">
             <arg name="robot_name" value="$(arg robot2_name)"/>
             <arg name="base" value="$(arg base)"/>
@@ -72,7 +73,8 @@
         <include if="$(eval arg('mapping') and arg('gmapping'))" file="$(find multi_turtlebot_gazebo)/launch/includes/one_turtlebot_gmapping.launch.xml">
             <arg name="robot_name"  value="$(arg robot2_name)"/>
         </include>
-    </group> -->
+        <node pkg="multi_robot" name="robot_moving" type="robot_moving" output="screen"/>
+    </group>
 </launch>
 <!-- 
 -x
