@@ -169,6 +169,8 @@ private:
     bool forwardWallDetection(sensor_msgs::LaserScan& scan, double& angle);
     double sideSpaceDetection(sensor_msgs::LaserScan& scan, int plus, int minus);
 
+    void calcGoalOrientation(geometry_msgs::Pose& goalPose, const geometry_msgs::Pose& startPose);
+
 public:
     Movement();
     ~Movement(){};
@@ -332,6 +334,22 @@ std::vector<geometry_msgs::PoseStamped> Movement::createPath(geometry_msgs::Poin
     return path;
 }
 
+void Movement::calcGoalOrientation(geometry_msgs::Pose& goalPose, const geometry_msgs::Pose& startPose){
+    //目標に到着した時の姿勢を計算
+    //スタート地点からゴール地点までのベクトルを使う
+    //計算結果のyawをクオータニオンに変換して代入
+
+    Eigen::Vector2d startToGoal(goalPose.position.x-startPose.position.x,goalPose.position.y-startPose.position.y);
+    startToGoal.normalize();
+
+    Eigen::Quaterniond q = Eigen::Quaterniond::FromTwoVectors(Eigen::Vector3d::UnitX(),Eigen::Vector3d(startToGoal.x(),startToGoal.y(),0.0));
+
+    goalPose.orientation.x = q.x();
+    goalPose.orientation.y = q.y();
+    goalPose.orientation.z = q.z();
+    goalPose.orientation.w = q.w();
+}
+
 void Movement::moveToGoal(geometry_msgs::Point goal,bool movebase){
     if(!movebase){
         moveToGoal(goal);
@@ -348,7 +366,10 @@ void Movement::moveToGoal(geometry_msgs::Point goal,bool movebase){
         movebaseGoal.target_pose.header.stamp = ros::Time::now();
         movebaseGoal.target_pose.pose.position.x =  goal.x;
         movebaseGoal.target_pose.pose.position.y =  goal.y;
-        movebaseGoal.target_pose.pose.orientation.w = 1.0;
+
+        qPose.callOne(ros::WallDuration(1.0));
+        calcGoalOrientation(movebaseGoal.target_pose.pose,poseData.pose);
+        //movebaseGoal.target_pose.pose.orientation.w = 1.0;
 
         ROS_INFO_STREAM("send goal to move_base\n");
         ac.sendGoal(movebaseGoal);
@@ -855,10 +876,11 @@ bool Movement::emergencyAvoidance(sensor_msgs::LaserScan scan){
             ROS_INFO_STREAM("Avoidance to Right\n");
         }
         else{
+            ROS_WARN_STREAM("I can not avoid it\n");
             return false;
         }
+        velocityPublisher(sign*scan.angle_max/6 * VELOCITY_GAIN, FORWARD_VELOCITY * VELOCITY_GAIN, AVOIDANCE_GAIN);
     }
-    velocityPublisher(sign*scan.angle_max/6 * VELOCITY_GAIN, FORWARD_VELOCITY * VELOCITY_GAIN, AVOIDANCE_GAIN);
 
     return true;
 }
@@ -883,7 +905,7 @@ void Movement::velocityPublisher(double theta, double v, double t){
 
     publishMoveAngle(theta,poseData.pose,vel);
     pubVelocity.publish(vel);
-    ROS_INFO_STREAM("Publish Velocity\n");
+    //ROS_INFO_STREAM("Publish Velocity\n");
 }
 
 void Movement::moveToForward(void){
@@ -959,7 +981,7 @@ void Movement::publishMoveAngle(double angle, geometry_msgs::Pose pose, geometry
     msg.header.stamp = ros::Time::now();
 
     pubMoveAngle.publish(msg);
-    ROS_INFO_STREAM("Publish MoveAngle\n");
+    //ROS_INFO_STREAM("Publish MoveAngle\n");
 }
 
 void Movement::publishVoronoiMap(nav_msgs::OccupancyGrid map){
