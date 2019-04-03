@@ -52,7 +52,9 @@
         <include if="$(eval arg('mapping') and arg('gmapping'))" file="$(find multi_turtlebot_gazebo)/launch/includes/one_turtlebot_gmapping.launch.xml">
             <arg name="robot_name"  value="$(arg robot1_name)"/>
         </include>
-        <!-- <node pkg="multi_robot" name="robot_moving" type="robot_moving" output="screen"/> -->
+        <!-- <include file="$(find multi_robot)/launch/multi_robot.launch">
+            <arg name="robot_name" value="$(arg robot1_name)"/>
+        </include> -->
     </group>
 
     <group ns="$(arg robot2_name)">
@@ -73,7 +75,9 @@
         <include if="$(eval arg('mapping') and arg('gmapping'))" file="$(find multi_turtlebot_gazebo)/launch/includes/one_turtlebot_gmapping.launch.xml">
             <arg name="robot_name"  value="$(arg robot2_name)"/>
         </include>
-        <!-- <node pkg="multi_robot" name="robot_moving" type="robot_moving" output="screen"/> -->
+        <!-- <include file="$(find multi_robot)/launch/multi_robot.launch">
+            <arg name="robot_name" value="$(arg robot2_name)"/>
+        </include> -->
     </group>
 </launch>
 <!-- 
