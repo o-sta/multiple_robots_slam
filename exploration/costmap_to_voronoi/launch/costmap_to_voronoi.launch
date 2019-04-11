@@ -16,7 +16,7 @@
 			<param name="$(arg topic_ns)/global_frame" value="$(arg global_frame_id)"/>
     		<param name="$(arg topic_ns)/robot_base_frame" value="$(arg base_frame_id)"/>
 			<param name="topic_ns" value="$(arg topic_ns)"/>
-			<remap from="/robot1/final_target" to="final_target"/>
+			<!-- <remap from="/robot1/final_target" to="final_target"/> -->
 		</node>
 	</group>
 	<group ns="$(arg robot_name2)">
@@ -26,7 +26,7 @@
 			<param name="$(arg topic_ns)/global_frame" value="$(arg global_frame_id2)"/>
     		<param name="$(arg topic_ns)/robot_base_frame" value="$(arg base_frame_id2)"/>
 			<param name="topic_ns" value="$(arg topic_ns)"/>
-			<remap from="/robot2/final_target" to="final_target"/>
+			<!-- <remap from="/robot2/final_target" to="final_target"/> -->
 		</node>
 	</group>
 </launch>

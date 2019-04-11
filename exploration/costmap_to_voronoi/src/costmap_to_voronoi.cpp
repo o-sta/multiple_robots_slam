@@ -1,12 +1,13 @@
-#include <costmap_to_voronoi/costmap_to_voronoi.h>
+#include "../include/costmap_to_voronoi.h"
 geometry_msgs::PoseStamped start_pose_set(std::string& frame_id)
 {
   std::cout << "start_pose_set" << std::endl;
   geometry_msgs::PoseStamped start_;
   start_.header.frame_id = frame_id;
+  std::cout << "start pose frame id : " << frame_id << std::endl;
   start_.pose.position.x = 0.0;
   start_.pose.position.y = 0.0;
-  start_.pose.position.x = 0.0;
+  start_.pose.position.z = 0.0;
   start_.pose.orientation.x=0.0;
   start_.pose.orientation.y=0.0;
   start_.pose.orientation.z=0.0;
@@ -20,7 +21,9 @@ void robot_final_target_CB(const geometry_msgs::PoseStamped &goal)
   std::string robot_frame_id_;
   ros::NodeHandle p("~");
   p.getParam("topic_ns", name);
-  p.getParam(name+"global_frame",robot_frame_id_);
+  std::cout << "topic ns : " << name << std::endl;
+  p.getParam(name+"/global_frame",robot_frame_id_);
+  std::cout << "global frame : " << robot_frame_id_ << std::endl;
   CostmapToVoronoi ctv(name);
   geometry_msgs::PoseStamped start_,goal_;
   std::vector<geometry_msgs::PoseStamped> plan;
