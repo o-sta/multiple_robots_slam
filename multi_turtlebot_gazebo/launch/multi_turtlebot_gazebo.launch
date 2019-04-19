@@ -56,7 +56,7 @@
         </include>
     </group>
 
-    <!-- <group ns="$(arg robot2_name)">
+    <group ns="$(arg robot2_name)">
         <include file="$(find multi_turtlebot_gazebo)/launch/includes/one_turtlebot_gazebo.launch.xml">
             <arg name="robot_name" value="$(arg robot2_name)"/>
             <arg name="base" value="$(arg base)"/>
@@ -74,7 +74,7 @@
         <include if="$(eval arg('mapping') and arg('gmapping'))" file="$(find multi_turtlebot_gazebo)/launch/includes/one_turtlebot_gmapping.launch.xml">
             <arg name="robot_name"  value="$(arg robot2_name)"/>
         </include>
-    </group> -->
+    </group>
 </launch>
 <!-- 
 -x
