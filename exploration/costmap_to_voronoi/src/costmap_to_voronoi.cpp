@@ -11,7 +11,6 @@ void robot_final_target_CB(const geometry_msgs::PoseStamped &goal);
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "costmap_to_voronoi");
-  ros::NodeHandle odom_nh;
 
   ros::NodeHandle p("~");
   geometry_msgs::PoseStamped start;
@@ -20,6 +19,7 @@ int main(int argc, char** argv)
   std::string robot_namespace_;
   p.getParam("namespace",robot_namespace_);
   std::cout << "namespace:" << robot_namespace_ << std::endl;
+  ros::NodeHandle odom_nh("robot_namespace_");
 
   ros::NodeHandle nh;
   ros::Subscriber sub;
@@ -41,6 +41,7 @@ void start_pose_set(const nav_msgs::Odometry::ConstPtr& robot_odom_)
 {
   std::cout << "start_pose_set" << std::endl;
   start_g.header.frame_id = robot_odom_->header.frame_id;
+  std::cout << "robot_odom frame id :" << robot_odom_->header.frame_id << std::endl;
   start_g.pose.position.x = robot_odom_->pose.pose.position.x;
   start_g.pose.position.y = robot_odom_->pose.pose.position.y;
   start_g.pose.position.z = robot_odom_->pose.pose.position.z;
