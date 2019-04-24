@@ -7,6 +7,7 @@
 #include <exploration/common_lib.hpp>
 #include <std_msgs/Bool.h>
 #include <std_msgs/Float64.h>
+#include <omp.h>
 
 class ExplorationManager
 {
@@ -21,9 +22,15 @@ private:
     void mapCB(const nav_msgs::OccupancyGrid::ConstPtr& msg){
         //マップの面積を計算して終了条件と比較
         int freeSpace = 0;
-        for(const auto& m : msg->data){
-            if(m == 0) ++freeSpace;
+        //openmpで並列計算したい
+        int e = msg->data.size();
+        #pragma omp parallel for reduction(+:freeSpace)
+        for(int i=0;i<e;++i){
+            if(msg->data[i] == 0) ++freeSpace;
         }
+        // for(const auto& m : msg->data){
+        //     if(m == 0) ++freeSpace;
+        // }
         double area = msg->info.resolution * msg->info.resolution * freeSpace;
         area >= END_AREA*TOLERANCE ? end_.pub.publish(CommonLib::msgBool(true)) : end_.pub.publish(CommonLib::msgBool(false));
         area_.pub.publish(CommonLib::msgDouble(std::move(area)));

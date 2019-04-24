@@ -15,7 +15,7 @@
 #include <exploration_msgs/Frontier.h>
 #include <geometry_msgs/PointStamped.h>
 #include <exploration_msgs/PointArray.h>
-
+#include <omp.h>
 /*
 frontier_search tutorial
 
@@ -58,11 +58,18 @@ private:
             ,frontierMap(m.info.width,std::vector<int8_t>(m.info.height,0)){
                 
             info = m.info;
-            for(int y=0,k=0,ey=info.height;y!=ey;++y){
-                for(int x=0,ex=info.width;x!=ex;++x,++k){
-                    source[x][y] = m.data[k];
+            int x;
+            #pragma omp parallel for private(x)
+            for(int y=0;y<info.height;++y){
+                for(x=0;x<info.width;++x){
+                    source[x][y] = m.data[y*x];
                 }
             }
+            // for(int y=0,k=0,ey=info.height;y!=ey;++y){
+            //     for(int x=0,ex=info.width;x!=ex;++x,++k){
+            //         source[x][y] = m.data[k];
+            //     }
+            // }
         };
     };
 
@@ -358,21 +365,39 @@ std::vector<geometry_msgs::Point> FrontierSearch::frontiersToPoints(const std::v
 
 void FrontierSearch::horizonDetection(mapStruct& map){
     ROS_INFO_STREAM("Horizon Detection");
-    //x axis horizon
-    for(int y=0,ey=map.info.height;y!=ey;++y){
-        for(int x=0,ex=map.info.width-1;x!=ex;++x){
-            if(map.source[x][y] == 0 && map.source[x+1][y] == -1) map.horizon[x][y] = 1;
-            else if(map.source[x][y] == -1 && map.source[x+1][y] == 0) map.horizon[x+1][y] = 1;
+    //x axis horizon//openmp
+    int xx,yy;
+    #pragma omp parallel
+    {
+        #pragma omp for private(xx)
+        for(int yx=0;yx<map.info.height;++yx){
+            for(xx=0;xx<map.info.width-1;++xx){
+                if(map.source[xx][yx] == 0 && map.source[xx+1][yx] == -1) map.horizon[xx][yx] = 1;
+                else if(map.source[xx][yx] == -1 && map.source[xx+1][yx] == 0) map.horizon[xx+1][yx] = 1;
+            }
+        }
+        #pragma omp for private(yy)
+        for(int xy=0;xy<map.info.width;++xy){
+            for(yy=0;yy<map.info.height-1;++yy){
+                if(map.source[xy][yy] == 0 && map.source[xy][yy+1] == -1) map.horizon[xy][yy] = 1;
+                else if(map.source[xy][yy] == -1 && map.source[xy][yy+1] == 0) map.horizon[xy][yy+1] = 1;
+            }
         }
     }
+    // for(int y=0,ey=map.info.height;y!=ey;++y){
+    //     for(int x=0,ex=map.info.width-1;x!=ex;++x){
+    //         if(map.source[x][y] == 0 && map.source[x+1][y] == -1) map.horizon[x][y] = 1;
+    //         else if(map.source[x][y] == -1 && map.source[x+1][y] == 0) map.horizon[x+1][y] = 1;
+    //     }
+    // }
 
-    //y axis horizon
-    for(int x=0,ex=map.info.width;x!=ex;++x){
-        for(int y=0,ey=map.info.height-1;y!=ey;++y){
-            if(map.source[x][y] == 0 && map.source[x][y+1] == -1) map.horizon[x][y] = 1;
-            else if(map.source[x][y] == -1 && map.source[x][y+1] == 0) map.horizon[x][y+1] = 1;
-        }
-    }
+    //y axis horizon//openmp
+    // for(int x=0,ex=map.info.width;x!=ex;++x){
+    //     for(int y=0,ey=map.info.height-1;y!=ey;++y){
+    //         if(map.source[x][y] == 0 && map.source[x][y+1] == -1) map.horizon[x][y] = 1;
+    //         else if(map.source[x][y] == -1 && map.source[x][y+1] == 0) map.horizon[x][y+1] = 1;
+    //     }
+    // }
     ROS_INFO_STREAM("Horizon Detection complete\n");
 }
 
@@ -485,12 +510,19 @@ Eigen::Vector3i FrontierSearch::coordinateToArray(const Eigen::Vector2d& coordin
 void FrontierSearch::obstacleFilter(FrontierSearch::mapStruct& map,std::vector<Eigen::Vector3i>& index){
     ROS_INFO_STREAM("Obstacle Filter");
     
-    //add obstacle cell
-    for(int x=0,ex=map.info.width;x!=ex;++x){
-        for(int y=0,ey=map.info.height;y!=ey;++y){
+    //add obstacle cell//openmp
+    int y;
+    #pragma omp parallel for private(y)
+    for(int x=0;x<map.info.width;++x){
+        for(y=0;y<map.info.height;++y){
             if(map.source[x][y] == 100) map.frontierMap[x][y] = 100;
         }
     }
+    // for(int x=0,ex=map.info.width;x!=ex;++x){
+    //     for(int y=0,ey=map.info.height;y!=ey;++y){
+    //         if(map.source[x][y] == 100) map.frontierMap[x][y] = 100;
+    //     }
+    // }
 
     int FILTER_HALF_CELL = (FILTER_SQUARE_DIAMETER / map.info.resolution) / 2.0;
     //FILTER_HALF_CELL += FILTER_HALF_CELL % 2;//奇数ではダメな理由が不明

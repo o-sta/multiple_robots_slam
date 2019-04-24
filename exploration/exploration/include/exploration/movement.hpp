@@ -11,6 +11,7 @@
 #include <actionlib/client/simple_action_client.h>
 #include <Eigen/Geometry>
 #include <exploration/common_lib.hpp>
+#include <omp.h>
 
 //センサーデータを受け取った後にロボットの動作を決定する
 //障害物回避を含む
@@ -365,17 +366,37 @@ bool Movement::emergencyAvoidance(const sensor_msgs::LaserScan& scan){
 
     //minus側の平均
     double aveM=0;
-    for(int i=0,e=scan.ranges.size()/2;i!=e;++i){
-        if(!std::isnan(scan.ranges[i])) aveM += scan.ranges[i];
+    double aveP=0;
+    //openmp
+    #pragma omp parallel
+    {
+        //minus側
+        int em = scan.ranges.size()/2;
+        #pragma omp for reduction(+:aveM)
+        for(int im=0;im<em;++im){
+            if(!std::isnan(scan.ranges[im])) aveM += scan.ranges[im];
+        }
+        //plus側
+        int ep = scan.ranges.size();
+        #pragma omp for reduction(+:aveP)
+        for(int ip=scan.ranges.size()/2;ip<ep;++ip){
+            if(!std::isnan(scan.ranges[ip])) aveP += scan.ranges[ip];
+        }
     }
     aveM /= scan.ranges.size()/2;
-
-    //plus側
-    double aveP=0;
-    for(int i=scan.ranges.size()/2,e=scan.ranges.size();i!=e;++i){
-        if(!std::isnan(scan.ranges[i])) aveP += scan.ranges[i];
-    }
     aveP /= scan.ranges.size()/2;
+    // double aveM=0;
+    // for(int i=0,e=scan.ranges.size()/2;i!=e;++i){
+    //     if(!std::isnan(scan.ranges[i])) aveM += scan.ranges[i];
+    // }
+    // aveM /= scan.ranges.size()/2;
+
+    // //plus側
+    // double aveP=0;
+    // for(int i=scan.ranges.size()/2,e=scan.ranges.size();i!=e;++i){
+    //     if(!std::isnan(scan.ranges[i])) aveP += scan.ranges[i];
+    // }
+    // aveP /= scan.ranges.size()/2;
 
     //左右の差がそんなにないなら前回避けた方向を採用する
     //一回目に避けた方向に基本的に従う
@@ -473,12 +494,19 @@ bool Movement::forwardWallDetection(const sensor_msgs::LaserScan& scan, double& 
     int count = 0;
     double wallDistance = 0;
 
-    for(int i=MINUS;i!=PLUS;++i){
+    #pragma omp parallel for reduction(+:count) reduction(+:wallDistance)
+    for(int i=MINUS;i<PLUS;++i){
         if(!std::isnan(scan.ranges[i])){
             ++count;
             wallDistance += scan.ranges[i];
         }
     }
+    // for(int i=MINUS;i!=PLUS;++i){
+    //     if(!std::isnan(scan.ranges[i])){
+    //         ++count;
+    //         wallDistance += scan.ranges[i];
+    //     }
+    // }
     //ROS_INFO_STREAM("PLUS : " << PLUS << ", MINUS : " << MINUS << ", count : " << count << ", rate : " << (double)count/(PLUS-MINUS) << "\n");
 
     wallDistance /= count;
