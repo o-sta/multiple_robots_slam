@@ -153,6 +153,8 @@ void GridMapMerge::mapMerging(void){
 
     //robot.initPose を見て画像を回転してくっつけたのをgridにする
 
+    //rectで合成後の画像のサイズを計算して、そのサイズの背景を用意して地図を貼り付けていく?
+
     // pcl::PointCloud<pcl::PointXYZRGB>::Ptr mergeCloud(new pcl::PointCloud<pcl::PointXYZRGB>);
     // Eigen::Matrix2d rotation;
     // //updateされているかどうかで処理を変える
