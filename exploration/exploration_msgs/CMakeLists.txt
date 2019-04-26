@@ -51,10 +51,8 @@ find_package(catkin REQUIRED COMPONENTS
  add_message_files(
    FILES
    PointArray.msg
-   ToGoal.msg
-   MoveAngle.msg
-   Goal.msg
-   GoalList.msg
+   Frontier.msg
+   PoseStampedArray.msg
  )
 
 ## Generate services in the 'srv' folder
@@ -122,6 +120,7 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
+  #"/usr/include/pcl-1.7"
 )
 
 ## Declare a C++ library

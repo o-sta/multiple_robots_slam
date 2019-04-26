@@ -10,7 +10,8 @@
 	<arg name="topic_ns" default="costmap_to_voronoi"/>
 
 	<group ns="$(arg robot_name)">
-		<node pkg="costmap_to_voronoi" type="costmap_to_voronoi" name="costmap_to_voronoi" output="screen">
+		<node pkg="costmap_to_voronoi" type="costmap_to_voronoi" name="costmap_to_voronoi"  respawn="true">
+			<param name="namespace" value="$(arg robot_name)"/>
 			<rosparam file="$(find costmap_to_voronoi)/params/costmap_common_params.yaml" command="load" ns="$(arg topic_ns)"/>
 			<rosparam file="$(find costmap_to_voronoi)/params/global_costmap_params.yaml" command="load" ns="$(arg topic_ns)"/>
 			<param name="$(arg topic_ns)/global_frame" value="$(arg global_frame_id)"/>
@@ -20,7 +21,8 @@
 		</node>
 	</group>
 	<group ns="$(arg robot_name2)">
-		<node pkg="costmap_to_voronoi" type="costmap_to_voronoi" name="costmap_to_voronoi" output="screen">
+		<node pkg="costmap_to_voronoi" type="costmap_to_voronoi" name="costmap_to_voronoi" respawn="true">
+			<param name="namespace" value="$(arg robot_name2)"/>
 			<rosparam file="$(find costmap_to_voronoi)/params/costmap_common_params.yaml" command="load" ns="$(arg topic_ns)"/>
 			<rosparam file="$(find costmap_to_voronoi)/params/global_costmap_params.yaml" command="load" ns="$(arg topic_ns)"/>
 			<param name="$(arg topic_ns)/global_frame" value="$(arg global_frame_id2)"/>

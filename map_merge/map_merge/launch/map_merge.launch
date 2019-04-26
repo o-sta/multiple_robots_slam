@@ -5,6 +5,8 @@
 
   <arg name="merge_map_frame" default="/$(arg server_name)/merge_map"/>
   
+  <!-- ロボットを追加するときは初期設定、パラメータ、tfをコピペ -->
+
   <!-- 各ロボットの初期設定 -->
   <!-- yawの設定値は -1.57 <= yaw <= 1.57 -->
   <arg name="robot1_map_frame" default="/robot1/map"/>
@@ -39,7 +41,7 @@
 
     <node pkg="grid_map_merge" type="grid_map_merge" name="grid_map_merge" output="screen">
       <param name="robot_map_topic" value="map"/>
-      <param name="robot_namespace" value=""/>
+      <!-- <param name="robot_namespace" value=""/> -->
       <param name="merged_map_topic" value="grid_map_merge/merge_map"/>
       <param name="world_frame" value="$(arg merge_map_frame)"/>
       <param name="known_init_poses" value="true"/>
