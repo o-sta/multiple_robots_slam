@@ -1,6 +1,6 @@
 <launch>
     <env name="GAZEBO_MODEL_PATH" value="$(find multi_turtlebot_gazebo)/world/models:$(optenv GAZEBO_MODEL_PATH)" /> 
-    <arg name="world_file"  default="$(find multi_turtlebot_gazebo)/world/tdu_1-13_corridor_marker.world"/>
+    <arg name="world_file"  default="$(find multi_turtlebot_gazebo)/world/tdu_1-13_corridor.world"/>
 
     <arg name="base"      value="$(optenv TURTLEBOT_BASE kobuki)"/> <!-- create, roomba -->
     <arg name="gui" default="true"/>
@@ -17,10 +17,8 @@
     <!-- gazebo上でのロボットの初期位置 (map_mergeのような相対座標ではなく絶対座標で記述)-->
     <arg name="robot1_name" default="robot1"/>
     <arg name="robot1_init_x" default="0.0"/>
-    <!-- <arg name="robot1_init_x" default="19.0"/> -->
     <arg name="robot1_init_y" default="0.0"/>
     <arg name="robot1_init_yaw" default="0.0"/>
-    <!-- <arg name="robot1_init_yaw" default="3.14"/> -->
 
     <arg name="robot2_name" default="robot2"/>
     <arg name="robot2_init_x" default="3.0"/>
@@ -54,7 +52,9 @@
         <include if="$(eval arg('mapping') and arg('gmapping'))" file="$(find multi_turtlebot_gazebo)/launch/includes/one_turtlebot_gmapping.launch.xml">
             <arg name="robot_name"  value="$(arg robot1_name)"/>
         </include>
-        <!-- <node pkg="multi_robot" name="robot_moving" type="robot_moving" output="screen"/> -->
+        <!-- <include file="$(find multi_robot)/launch/multi_robot.launch">
+            <arg name="robot_name" value="$(arg robot1_name)"/>
+        </include> -->
     </group>
 
     <group ns="$(arg robot2_name)">
@@ -75,6 +75,9 @@
         <include if="$(eval arg('mapping') and arg('gmapping'))" file="$(find multi_turtlebot_gazebo)/launch/includes/one_turtlebot_gmapping.launch.xml">
             <arg name="robot_name"  value="$(arg robot2_name)"/>
         </include>
+        <!-- <include file="$(find multi_robot)/launch/multi_robot.launch">
+            <arg name="robot_name" value="$(arg robot2_name)"/>
+        </include> -->
     </group>
 </launch>
 <!-- 
