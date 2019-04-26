@@ -23,9 +23,9 @@
     <!-- <arg name="robot1_init_yaw" default="3.14"/> -->
 
     <arg name="robot2_name" default="robot2"/>
-    <arg name="robot2_init_x" default="3.0"/>
-    <arg name="robot2_init_y" default="0.0"/>
-    <arg name="robot2_init_yaw" default="0.0"/>
+    <arg name="robot2_init_x" default="39.3"/>
+    <arg name="robot2_init_y" default="12.0"/>
+    <arg name="robot2_init_yaw" default="3.14"/>
 
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
