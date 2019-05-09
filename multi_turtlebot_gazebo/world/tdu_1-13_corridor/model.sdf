@@ -2,7 +2,7 @@
 <sdf version='1.6'>
   <model name='tdu_1-13_corridor'>
     <pose frame=''>19.65 6 0 0 -0 0</pose>
-    <link name='Wall_0'>
+      <link name='Wall_0'>
       <collision name='Wall_0_Collision'>
         <geometry>
           <box>
@@ -18,13 +18,13 @@
             <size>46.85 0.15 2.5</size>
           </box>
         </geometry>
-        <material>
+        <!-- <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://materials/scripts/repeated.material</uri>
+            <name>Texture</name>
           </script>
           <ambient>1 1 1 1</ambient>
-        </material>
+        </material> -->
       </visual>
       <pose frame=''>-1e-06 -7 0 0 -0 0</pose>
     </link>
