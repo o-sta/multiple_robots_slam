@@ -1,4 +1,4 @@
-material RepeatedTexture
+material tdu_1-13_corridor/wall_0
 {
   technique
   {
@@ -7,9 +7,9 @@ material RepeatedTexture
       texture_unit
       {
         // Relative to the location of the material script
-        texture ../texture/toutoki.png
+        texture ../texture/wall_0.png
         // Repeat the texture over the surface (4 per face)
-        scale 50 50
+        //scale 0.5 0.5
       }
     }
   }

@@ -18,13 +18,13 @@
             <size>46.85 0.15 2.5</size>
           </box>
         </geometry>
-        <!-- <material>
-          <script>
-            <uri>model://materials/scripts/repeated.material</uri>
-            <name>Texture</name>
+        <material>
+          <script> 
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_0.material</uri>
+            <name>tdu_1-13_corridor/wall_0</name>
           </script>
           <ambient>1 1 1 1</ambient>
-        </material> -->
+        </material>
       </visual>
       <pose frame=''>-1e-06 -7 0 0 -0 0</pose>
     </link>
@@ -45,9 +45,9 @@
           </box>
         </geometry>
         <material>
-          <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+          <script> 
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_1.material</uri>
+            <name>tdu_1-13_corridor/wall_1</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -72,8 +72,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_2.material</uri>
+            <name>tdu_1-13_corridor/wall_2</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -98,8 +98,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_3.material</uri>
+            <name>tdu_1-13_corridor/wall_3</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -124,8 +124,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_4.material</uri>
+            <name>tdu_1-13_corridor/wall_4</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -150,8 +150,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_5.material</uri>
+            <name>tdu_1-13_corridor/wall_5</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -176,8 +176,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_6.material</uri>
+            <name>tdu_1-13_corridor/wall_6</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -202,8 +202,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_7.material</uri>
+            <name>tdu_1-13_corridor/wall_7</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -228,8 +228,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_8.material</uri>
+            <name>tdu_1-13_corridor/wall_8</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -254,8 +254,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_9.material</uri>
+            <name>tdu_1-13_corridor/wall_9</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -280,8 +280,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_10.material</uri>
+            <name>tdu_1-13_corridor/wall_10</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -306,8 +306,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_11.material</uri>
+            <name>tdu_1-13_corridor/wall_11</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -332,8 +332,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_12.material</uri>
+            <name>tdu_1-13_corridor/wall_12</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -358,8 +358,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_13.material</uri>
+            <name>tdu_1-13_corridor/wall_13</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -384,8 +384,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_14.material</uri>
+            <name>tdu_1-13_corridor/wall_14</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -410,8 +410,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_15.material</uri>
+            <name>tdu_1-13_corridor/wall_15</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -436,8 +436,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_16.material</uri>
+            <name>tdu_1-13_corridor/wall_16</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -462,8 +462,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_17.material</uri>
+            <name>tdu_1-13_corridor/wall_17</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -488,8 +488,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_18.material</uri>
+            <name>tdu_1-13_corridor/wall_18</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -514,8 +514,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_19.material</uri>
+            <name>tdu_1-13_corridor/wall_19</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -540,8 +540,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_20.material</uri>
+            <name>tdu_1-13_corridor/wall_20</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -566,8 +566,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_21.material</uri>
+            <name>tdu_1-13_corridor/wall_21</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -592,8 +592,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_22.material</uri>
+            <name>tdu_1-13_corridor/wall_22</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>
@@ -618,8 +618,8 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
+            <uri>model://tdu_1-13_corridor/materials/scripts/wall_23.material</uri>
+            <name>tdu_1-13_corridor/wall_23</name>
           </script>
           <ambient>1 1 1 1</ambient>
         </material>

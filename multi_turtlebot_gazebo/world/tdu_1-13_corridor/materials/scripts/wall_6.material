@@ -1,0 +1,14 @@
+material tdu_1-13_corridor/wall_6
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../texture/wall_6.jpg
+      }
+    }
+  }
+}
