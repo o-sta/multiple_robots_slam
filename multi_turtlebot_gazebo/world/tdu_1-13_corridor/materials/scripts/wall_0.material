@@ -7,7 +7,7 @@ material tdu_1-13_corridor/wall_0
       texture_unit
       {
         // Relative to the location of the material script
-        texture ../texture/wall_0.png
+        texture ../texture/wall_0.jpg
         // Repeat the texture over the surface (4 per face)
         //scale 0.5 0.5
       }
